@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Quantum.Vistas.Home"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout>
+        <Label 
+            Text="Home"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button x:Name="btn_logout" Text="Cerrar Sessión" BackgroundColor="Blue" TextColor="White" Clicked="btn_logout_Clicked" />
+
+    </VerticalStackLayout>
+</ContentPage>
