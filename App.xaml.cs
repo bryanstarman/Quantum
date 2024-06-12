@@ -16,7 +16,7 @@
 
             if (!string.IsNullOrEmpty(token))
             {
-                MainPage = new NavigationPage(new Vistas.Home());
+                MainPage = new NavigationPage(new Vistas.Principal());
             }
             else
             {
@@ -32,7 +32,7 @@
 
             if (!string.IsNullOrEmpty(token))
             {
-                MainPage = new NavigationPage(new Vistas.Home());
+                MainPage = new NavigationPage(new Vistas.Principal());
             }
             else
             {

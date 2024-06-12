@@ -3,10 +3,12 @@ namespace Quantum.Vistas;
 
 public partial class Login : ContentPage
 {
+    UserService userService;
 	public Login()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+        userService=new UserService();
+    }
 
     private async void btn_loguearse_Clicked(object sender, EventArgs e)
     {
@@ -21,10 +23,10 @@ public partial class Login : ContentPage
                 {
                     loadingOverlay.IsVisible = true;
                     blockElemt();
-                    var userResponse = await UserService.LoginAsync(email, password);
+                    var userResponse = await userService.LoginAsync(email, password);
                     await SecureStorage.SetAsync("auth_token", userResponse.Token);
                     await DisplayAlert("Info", $"Bienvenido: {userResponse.User.Name}", "OK");
-                    Application.Current.MainPage = new Home();
+                    Application.Current.MainPage = new Principal();
                 }
                 catch (Exception ex)
                 {

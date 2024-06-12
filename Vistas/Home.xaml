@@ -6,10 +6,12 @@
              NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout>
         <Label 
-            Text="Home"
+            Text="Pagina Principal"
             VerticalOptions="Center" 
+            FontSize="30"
+            TextColor="Black"
             HorizontalOptions="Center" />
-        <Button x:Name="btn_logout" Text="Cerrar Sessión" BackgroundColor="Blue" TextColor="White" Clicked="btn_logout_Clicked" />
+        
 
     </VerticalStackLayout>
 </ContentPage>

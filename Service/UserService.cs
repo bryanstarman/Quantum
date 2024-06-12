@@ -1,15 +1,15 @@
 ﻿
 using Newtonsoft.Json;
-using Quantum.Service;
+using Quantum.Util;
+
 
 public class UserService
 {
-    private static readonly HttpClient client = new HttpClient();
-  
-    
-    public static async Task<UserResponse> LoginAsync(string email, string password)
+    private readonly Config _config =  new Config();
+
+    public async Task<UserResponse> LoginAsync(string email, string password)
     {
-        var url = "https://7850-157-100-111-10.ngrok-free.app/api/login";
+        var url = _config.ApiUrl+"login";
         var values = new Dictionary<string, string>
         {
             { "email", email },
@@ -18,11 +18,14 @@ public class UserService
 
         var content = new FormUrlEncodedContent(values);
 
-        var response = await client.PostAsync(url, content);
+        var response = await _config.client.PostAsync(url, content);
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new Exception("Estas credenciales no coinciden con nuestros registros.");
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            var errorObj = JsonConvert.DeserializeObject<ErrorResponse>(errorResponse);
+            throw new Exception(errorObj.Message);
+
         }
 
         var responseString = await response.Content.ReadAsStringAsync();
