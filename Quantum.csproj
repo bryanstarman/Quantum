@@ -49,11 +49,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\ChartBarSquareIcon.png" />
+	  <None Remove="Resources\Images\dropicon.png" />
+	  <None Remove="Resources\Images\ec.png" />
+	  <None Remove="Resources\Images\ec.svg" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\Menu.png" />
+	  <None Remove="Resources\Images\TicketIcon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="FFImageLoading.Maui" Version="1.2.5" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>

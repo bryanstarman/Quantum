@@ -1,4 +1,7 @@
 
+using Newtonsoft.Json;
+using Quantum.Service;
+
 namespace Quantum.Vistas;
 
 public partial class Login : ContentPage
@@ -24,6 +27,7 @@ public partial class Login : ContentPage
                     loadingOverlay.IsVisible = true;
                     blockElemt();
                     var userResponse = await userService.LoginAsync(email, password);
+                    Preferences.Set("UserResponse", JsonConvert.SerializeObject(userResponse));
                     await SecureStorage.SetAsync("auth_token", userResponse.Token);
                     await DisplayAlert("Info", $"Bienvenido: {userResponse.User.Name}", "OK");
                     Application.Current.MainPage = new Principal();

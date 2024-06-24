@@ -2,42 +2,109 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Quantum.Vistas.MenuFlyout"
-             xmlns:local="clr-namespace:Quantum.Vistas"
-             xmlns:local1="clr-namespace:Quantum.Modelo"
-             BackgroundColor="White"
-             Padding="0,40,0,0"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             BackgroundColor="White"             
+             Padding="0,0,0,0"
              IconImageSource="logo.png"
              Title="MenuFlyout">
-    <CollectionView x:Name="collectionView"
-                    x:FieldModifier="public"
-                    SelectionMode="Single">
-        <CollectionView.ItemsSource>
-            <x:Array Type="{x:Type local1:MenuFlyoutItem}">
-                <local1:MenuFlyoutItem 
-                                      IconSource="logo.png"
-                                      ButtonExit="Cerrar Session"
-                                      TargetType="{x:Type local:Home}"/>
-            
-                
-            </x:Array>
-        </CollectionView.ItemsSource>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid Padding="5,10">
+    <ScrollView>
+        <StackLayout>
+            <Grid Padding="0" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Image Source="logo.png" Aspect="AspectFit"  HeightRequest="80" WidthRequest="250"/>
+            </Grid>
+            <Frame Padding="0"
+               HasShadow="False"
+               BorderColor="#E3E3E3"
+               CornerRadius="5"
+               Margin="10,0">
+                <Grid Padding="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition ></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Image  Source="{Binding IconSource}"/>
-
-                    <Button Grid.Column="0" Grid.Row="1" Text="{Binding ButtonExit}" BackgroundColor="#F5F6F7" TextColor="#58595A" Clicked="btn_logout_Clicked"></Button>
+                    <StackLayout Grid.Column="1" Orientation="Vertical" Padding="0" Margin="10">
+                        <Label Text="Seleccione" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="Proyectos" FontAttributes="Italic" TextColor="Black"/>
+                    </StackLayout>
+                    <Grid Grid.Column="2" WidthRequest="50">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDropdownButtonClicked"/>
+                        </Grid.GestureRecognizers>
+                        <ImageButton Source="dropicon.png"
+                                 WidthRequest="20"
+                                 HeightRequest="20"
+                                 BackgroundColor="White"
+                                 Clicked="OnDropdownButtonClicked"
+                                 BorderWidth="0"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"/>
+                    </Grid>
                 </Grid>
-                
-            </DataTemplate>
-            
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+            </Frame>
+
+            <Frame x:Name="dropdownFrame"
+                   BorderColor="#E3E3E3"
+       IsVisible="False"
+       Margin="10,0"
+                   Padding="0"
+       HasShadow="True" >
+                <CollectionView x:Name="projectCollectionView" 
+                    SelectionMode="Single"
+                    SelectionChanged="OnProjectSelected">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10,10,10,10" ColumnDefinitions="50, *" VerticalOptions="CenterAndExpand">
+
+                                <ffimageloading:SvgCachedImage Grid.Column="0"  VerticalOptions="Center" Source="{Binding Branch.Country.FlagUrl}"  WidthRequest="30" HeightRequest="30"></ffimageloading:SvgCachedImage>
+                                
+                                <StackLayout Grid.Column="1"
+                                 Orientation="Vertical"
+                                             VerticalOptions="CenterAndExpand"
+                                 Padding="8,0,0,0">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" TextColor="Black" />
+                                    <Label Text="{Binding Description}" FontAttributes="Italic" TextColor="Black"/>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Frame>
+
+            <BoxView Margin="10,25,10,15" HeightRequest="1" Color="#E3E3E3"/>
+
+            <CollectionView x:Name="MenuItemsList"
+                            SelectionMode="Single"
+                            SelectionChanged="OnProjectSelected" Margin="0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid  Padding="20,10,10,10">
+                            <Grid.ColumnDefinitions> 
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding IconName}" WidthRequest="24" HeightRequest="24" Margin="0"/>
+                            <Label Text="{Binding Description}" FontSize="15" VerticalOptions="Center" Grid.Column="1" Margin="10,0" TextColor="#636363"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button  x:Name="btn_cerrar"
+                Grid.Column="0"
+                  Grid.Row="1"
+                  Text="Cerrar Sesión"
+                  BackgroundColor="#F5F6F7"
+                  TextColor="#58595A"
+                  Clicked="btn_logout_Clicked"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

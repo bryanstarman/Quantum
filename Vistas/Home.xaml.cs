@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Windows.Input;
 
 namespace Quantum.Vistas;
@@ -15,17 +16,12 @@ public partial class Home : ContentPage
             flyoutPage.IsPresented = !flyoutPage.IsPresented;
         });
         BindingContext = this;
-    }
-
-    private async void btn_logout_Clicked(object sender, EventArgs e)
-    {
-        bool confirm = await DisplayAlert("Info", "Quieres cerrar Sessión?", "Si", "No");
-
-        if (confirm)
+        var userResponseJson = Preferences.Get("UserResponse", string.Empty);
+        if (!string.IsNullOrEmpty(userResponseJson))
         {
-            SecureStorage.Remove("auth_token");
-
-            Application.Current.MainPage = new NavigationPage(new Login());
+            var userResponse = JsonConvert.DeserializeObject<UserResponse>(userResponseJson);
+            star.Text = "Bienvenido "+userResponse.User.Name;
         }
     }
+
 }

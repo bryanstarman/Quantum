@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using FFImageLoading.Maui;
 
 namespace Quantum
 {
@@ -9,6 +10,7 @@ namespace Quantum
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseFFImageLoading()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
