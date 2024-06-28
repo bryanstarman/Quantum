@@ -23,5 +23,8 @@ public partial class Home : ContentPage
             star.Text = "Bienvenido "+userResponse.User.Name;
         }
     }
-
+    private async void btn_tickets(object sender, EventArgs e)
+    {
+        Application.Current.MainPage = new TicketSPM();
+    }
 }

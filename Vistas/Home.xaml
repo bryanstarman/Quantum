@@ -11,6 +11,7 @@
             FontSize="30"
             TextColor="Black"
             HorizontalOptions="Center" x:Name="star"/>
+        <Button x:Name="btn_ticket" Text="spm" BackgroundColor="#007fce" TextColor="White" Clicked="btn_tickets" />
         
 
 
