@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Quantum.Vistas.TicketsPage"
+             xmlns:local="clr-namespace:Quantum.Vistas"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <local:TemplateHeader x:Name="header" Margin="0,0,0,10"/>
+                <ScrollView>
+                    <StackLayout>
+
+                        <CollectionView x:Name="ticketSPMCollectionView" SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <TableView Intent="Menu">
+                                        <TableRoot>
+                                            <TableSection Title="Learn how to use your XBox">
+                                                <ImageCell Text="{Binding Ticket.code_identify}"
+                                    Detail="Learn about your XBox and its \n capabilities."
+                                 ImageSource="xbox.png" />
+
+                                                
+                                            </TableSection>
+                                        </TableRoot>
+                                    </TableView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <local:UserPopup x:Name="userPopup" AbsoluteLayout.LayoutFlags="PositionProportional" Padding="0" Margin="0,60,4,0" AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" IsVisible="false" BackgroundColor="Transparent"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

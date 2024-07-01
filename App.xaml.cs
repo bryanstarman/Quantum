@@ -58,7 +58,7 @@
 
             if (!string.IsNullOrEmpty(token))
             {
-                MainPage = new NavigationPage(new Vistas.Principal());
+                MainPage = new Vistas.Principal();
             }
             else
             {

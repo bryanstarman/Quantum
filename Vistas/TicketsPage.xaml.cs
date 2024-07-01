@@ -1,12 +1,13 @@
+using Quantum.Modelo;
 using Quantum.Service;
 
 namespace Quantum.Vistas;
 
-public partial class TicketSPM : ContentPage
+public partial class TicketsPage : ContentPage
 {
     TicketSPMService ticketSPMService;
-    public List<Project> Projects { get; set; }
-    public TicketSPM()
+    public List<Project> Projects;
+    public TicketsPage()
 	{
 		InitializeComponent();
         ticketSPMService = new TicketSPMService();
@@ -20,11 +21,11 @@ public partial class TicketSPM : ContentPage
             if (token != null)
             {
                 var ticketResponse = await ticketSPMService.GetTicketSPMAsync();
-               ticketSPMCollectionView.ItemsSource=ticketResponse.Datas;
+                ticketSPMCollectionView.ItemsSource = ticketResponse.Datas;
             }
             else
             {
-                await DisplayAlert("Error", "No se encontró el token de autenticación.", "OK");
+                await DisplayAlert("Error", "No se encontr? el token de autenticaci?n.", "OK");
             }
         }
         catch (Exception ex)

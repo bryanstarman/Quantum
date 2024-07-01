@@ -31,9 +31,10 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+                    <ffimageloading:SvgCachedImage x:Name="img_activeProyect" Grid.Column="0" VerticalOptions="Center" WidthRequest="30" HeightRequest="30"/>
                     <StackLayout Grid.Column="1" Orientation="Vertical" Padding="0" Margin="10">
-                        <Label Text="Seleccione" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="Proyectos" FontAttributes="Italic" TextColor="Black"/>
+                        <Label x:Name="lbl_activeProjectName" FontAttributes="Bold" TextColor="Black"/>
+                        <Label x:Name="lbl_activeProjectDescription" FontAttributes="Italic" TextColor="Black"/>
                     </StackLayout>
                     <Grid Grid.Column="2" WidthRequest="50">
                         <Grid.GestureRecognizers>
@@ -84,11 +85,11 @@
 
             <CollectionView x:Name="MenuItemsList"
                             SelectionMode="Single"
-                            SelectionChanged="OnProjectSelected" Margin="0">
+                            SelectionChanged="MenuItemsList_SelectionChanged" Margin="0">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid  Padding="20,10,10,10">
-                            <Grid.ColumnDefinitions> 
+                            <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
@@ -98,13 +99,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button  x:Name="btn_cerrar"
-                Grid.Column="0"
-                  Grid.Row="1"
-                  Text="Cerrar Sesión"
-                  BackgroundColor="#F5F6F7"
-                  TextColor="#58595A"
-                  Clicked="btn_logout_Clicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -58,7 +58,7 @@ public class User
     public DateTime UpdatedAt { get; set; }
 
     [JsonProperty("projects")]
-    public List<Project> Projects { get; set; }
+    public List<ProjectLogin> Projects { get; set; }
 
     [JsonProperty("roles")]
     public List<Role> Roles { get; set; }
@@ -67,7 +67,7 @@ public class User
     public List<object> Permissions { get; set; }
 }
 
-public class Project
+public class ProjectLogin
 {
     [JsonProperty("id")]
     public int Id { get; set; }

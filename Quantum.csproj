@@ -54,8 +54,11 @@
 	  <None Remove="Resources\Images\ec.png" />
 	  <None Remove="Resources\Images\ec.svg" />
 	  <None Remove="Resources\Images\logo.png" />
-	  <None Remove="Resources\Images\Menu.png" />
+	  <None Remove="Resources\Images\menu.png" />
 	  <None Remove="Resources\Images\TicketIcon.png" />
+	  <None Remove="Resources\Images\user.png" />
+	  <None Remove="Resources\Images\user2.png" />
+	  <None Remove="Resources\Images\user3.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -77,7 +80,13 @@
 	  <MauiXaml Update="Vistas\Principal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Vistas\TicketSPM.xaml">
+	  <MauiXaml Update="Vistas\TemplateHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vistas\TicketsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vistas\UserPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
