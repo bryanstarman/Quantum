@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Quantum.Vistas.DetalleTroubleTicketsPage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:local="clr-namespace:Quantum.Vistas"
+             BackgroundColor="#F3F4F6"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <local:TemplateHeader x:Name="header" Margin="0,0,0,10" Grid.Row="0"/>
+                <ScrollView Grid.Row="1">
+                    <CollectionView x:Name="troubleTicketCollectionView"
+                        Margin="10,0,10,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="LightGray" CornerRadius="10" Padding="10" Margin="10" BackgroundColor="White">
+                                    <Frame.Resources>
+                                        <ResourceDictionary>
+                                            <Style TargetType="Frame">
+                                                <Setter Property="VisualStateManager.VisualStateGroups">
+                                                    <VisualStateGroupList>
+                                                        <VisualStateGroup Name="CommonStates">
+                                                            <VisualState Name="Normal">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                            <VisualState Name="Selected">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                                    <!-- Cambia este color a tu preferencia -->
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateGroupList>
+                                                </Setter>
+                                            </Style>
+                                        </ResourceDictionary>
+                                    </Frame.Resources>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ImageButton Source="book.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <ImageButton Source="eye.png" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <ImageButton Source="pencil.png" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <ImageButton Source="trash.png" Grid.Row="0" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                                        <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Ticket Number: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding Ticket.TicketNumber}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Open Date: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding Ticket.CreatedAt}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Part Number: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.PartNumber}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Description: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.ItemMaster.Description}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Serial Damaged: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.Serial}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Sent Serial: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding Ticket.Status.Descriptions}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Status: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding Ticket.Status.Description}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Warranty: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding Ticket.Status.Descriptidon}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="SLA Fulfilled: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.Sla.SlaResult}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="SLA Log Inverse: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.Sla.SlaResults}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Failure City: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding FailureCity.City}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Delivery Center: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DeliveryCity.City}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Remedy: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.Remedy}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Vendor: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.ItemMaster.Oem.Description}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Red: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding DetailLV1.ItemMaster.Details.Technology.Description}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Margin="0,0,0,10" TextColor="Black">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Creator: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                        <Span Text="{Binding Ticket.Creator.Name}" FontFamily="OpenSans-Regular"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
+            <local:UserPopup x:Name="userPopup" 
+                             AbsoluteLayout.LayoutFlags="PositionProportional" 
+                             Padding="0" 
+                             Margin="0,60,4,0" 
+                             AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" 
+                             IsVisible="false" 
+                             BackgroundColor="Transparent"/>
+            <local:LoadingIndicator x:Name="loadingIndicator" 
+                                AbsoluteLayout.LayoutFlags="All" 
+                                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                IsVisible="false"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

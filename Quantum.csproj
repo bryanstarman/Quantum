@@ -49,13 +49,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\book.png" />
 	  <None Remove="Resources\Images\ChartBarSquareIcon.png" />
 	  <None Remove="Resources\Images\dropicon.png" />
 	  <None Remove="Resources\Images\ec.png" />
 	  <None Remove="Resources\Images\ec.svg" />
+	  <None Remove="Resources\Images\Eye.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\menu.png" />
+	  <None Remove="Resources\Images\Pencil.png" />
 	  <None Remove="Resources\Images\TicketIcon.png" />
+	  <None Remove="Resources\Images\ticketsfulfilled.png" />
+	  <None Remove="Resources\Images\Trash.png" />
 	  <None Remove="Resources\Images\user.png" />
 	  <None Remove="Resources\Images\user2.png" />
 	  <None Remove="Resources\Images\user3.png" />
@@ -68,7 +73,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Vistas\DashboardPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vistas\DetalleTroubleTicketsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Vistas\Home.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vistas\LoadingIndicator.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Vistas\Login.xaml">
@@ -83,7 +97,7 @@
 	  <MauiXaml Update="Vistas\TemplateHeader.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Vistas\TicketsPage.xaml">
+	  <MauiXaml Update="Vistas\TroubleTicketsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Vistas\UserPopup.xaml">

@@ -7,11 +7,24 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <local:TemplateHeader x:Name="header" Margin="0,0,0,10"/>
-                <Image Source="ec.png"/>
-            </StackLayout>
-            <local:UserPopup x:Name="userPopup" AbsoluteLayout.LayoutFlags="PositionProportional" Padding="0" Margin="0,60,4,0" AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" IsVisible="false" BackgroundColor="Transparent"/>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <local:TemplateHeader x:Name="header" Margin="0,0,0,10" Grid.Row="0"/>
+                <StackLayout  Grid.Row="1" VerticalOptions="CenterAndExpand">
+                    <ActivityIndicator IsRunning="True" Color="#1C375C" VerticalOptions="Center"/>
+                    <Label Text="Cargando..." Padding="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#1C375C"/>
+                </StackLayout>
+            </Grid>
+            <local:UserPopup x:Name="userPopup" 
+                     AbsoluteLayout.LayoutFlags="PositionProportional" 
+                     Padding="0" 
+                     Margin="0,60,4,0" 
+                     AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" 
+                     IsVisible="false" 
+                     BackgroundColor="Transparent"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

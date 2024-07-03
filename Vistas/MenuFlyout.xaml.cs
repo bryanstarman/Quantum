@@ -1,10 +1,8 @@
-
 using Newtonsoft.Json;
 using Quantum.Modelo;
 using Quantum.Service;
 using System.Collections.ObjectModel;
-
-
+using static Android.App.LauncherActivity;
 namespace Quantum.Vistas;
 
 public partial class MenuFlyout : ContentPage
@@ -14,7 +12,6 @@ public partial class MenuFlyout : ContentPage
     private ObservableCollection<ProjectResponse> projects;
     private List<Project> originalProjectsList;
 
-
     public MenuFlyout()
     {
         InitializeComponent();
@@ -22,7 +19,6 @@ public partial class MenuFlyout : ContentPage
         LoadProjects();
         LoadNavigationItems();
     }
-
 
     private void LoadNavigationItems()
     {
@@ -43,10 +39,11 @@ public partial class MenuFlyout : ContentPage
                 }).ToList();
 
                 MenuItemsList.ItemsSource = menuFlyoutItems;
+
+                SelectFirstMenuItem();
             }
         }
     }
-
 
     private async void LoadProjects()
     {
@@ -83,12 +80,12 @@ public partial class MenuFlyout : ContentPage
         }
     }
 
-
     private void activeProject(ProjectResponse projectResponse)
     {
         var activeProjectSelect = projectResponse.Projects.FirstOrDefault();
         if (activeProjectSelect != null)
         {
+            //DisplayAlert("was", activeProjectSelect.ProjectId.ToString(), "wsd");
             Preferences.Set("ActiveProyect", JsonConvert.SerializeObject(activeProjectSelect));
             img_activeProyect.Source = activeProjectSelect.Branch.Country.FlagUrl;
             lbl_activeProjectName.Text = activeProjectSelect.Name;
@@ -109,9 +106,9 @@ public partial class MenuFlyout : ContentPage
 
             projectCollectionView.SelectedItem = null;
             openListProyect();
+            //LoadVistaHome();
         }
     }
-
 
     private void OnDropdownButtonClicked(object sender, EventArgs e)
     {
@@ -122,16 +119,18 @@ public partial class MenuFlyout : ContentPage
     {
         var selectedMenuItem = e.CurrentSelection.FirstOrDefault() as MenuFlyoutItem;
 
-        /*var ativeProyectJson = Preferences.Get("ActiveProyect", string.Empty);
-        if (!string.IsNullOrEmpty(ativeProyectJson))
-        {
-            var ativeProyect = JsonConvert.DeserializeObject<Project>(ativeProyectJson);
-            DisplayAlert("Info", ativeProyect.Branch.Country.Name  + " --  " + ativeProyect.BranchId + "-- "+ selectedMenuItem.Name, "ok");
-            openListProyect();
-        }*/
         if (selectedMenuItem != null)
         {
-            // Encontrar Principal en la jerarquía de páginas
+            HandleMenuItemSelection(selectedMenuItem);
+        }
+    }
+
+    private void HandleMenuItemSelection(MenuFlyoutItem selectedMenuItem)
+    {
+        lbl_valid.Text = selectedMenuItem.Name;
+
+        if (selectedMenuItem != null)
+        {
             var currentPage = Application.Current.MainPage;
 
             while (currentPage != null && !(currentPage is Principal))
@@ -161,9 +160,33 @@ public partial class MenuFlyout : ContentPage
         }
     }
 
+
+    private void SelectFirstMenuItem()
+    {
+        try
+        {
+            if (MenuItemsList.ItemsSource != null)
+            {
+                var itemsSource = MenuItemsList.ItemsSource as IList<MenuFlyoutItem>;
+                if (itemsSource != null && itemsSource.Any())
+                {
+                    var firstItem = itemsSource.FirstOrDefault();
+                    if (firstItem != null)
+                    {
+                        MenuItemsList.SelectedItem = firstItem;
+                        HandleMenuItemSelection(firstItem);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Error",$"Error selecting first menu item: {ex.Message}","ok");
+        }
+    }
+
     public void openListProyect()
     {
         dropdownFrame.IsVisible = dropdownFrame.IsVisible ? false : dropdownFrame.IsVisible;
-
     }
 }

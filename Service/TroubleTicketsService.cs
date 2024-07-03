@@ -1,22 +1,22 @@
-﻿using Newtonsoft.Json;
-using Quantum.Modelo;
-using Quantum.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Quantum.Modelo;
+using Quantum.Util;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace Quantum.Service
 {
-    class TicketSPMService
+    public class TroubleTicketsService
     {
         private readonly Config _config = new Config();
 
-        public async Task<TicketSPMResponse> GetTicketSPMAsync()
+       public async Task<TroubleTicketsResponse> GetTicketSPMAsync(int project_id)
         {
-            var url = _config.ApiUrl + "trouble-ticket/list-mobile?project_id=9";
+            var url = _config.ApiUrl + "trouble-ticket/list-mobile?project_id="+ project_id;
 
             var token = await SecureStorage.GetAsync("auth_token");
 
@@ -27,7 +27,7 @@ namespace Quantum.Service
 
             _config.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", $"{token}");
 
-           
+
 
             var response = await _config.client.GetAsync(url);
 
@@ -39,10 +39,9 @@ namespace Quantum.Service
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var TicketSPMResponse = JsonConvert.DeserializeObject<TicketSPMResponse>(responseContent);
+            var troubleTicketsResponse = JsonConvert.DeserializeObject<TroubleTicketsResponse>(responseContent);
 
-            return TicketSPMResponse;
+            return troubleTicketsResponse;
         }
     }
 }
-

@@ -1,5 +1,7 @@
 
 
+using Quantum.Modelo;
+
 namespace Quantum.Vistas;
 
 public partial class Principal : FlyoutPage
@@ -15,19 +17,40 @@ public partial class Principal : FlyoutPage
         var pageType = Type.GetType($"Quantum.Vistas.{pageName}");
         if (pageType != null)
         {
-            // Crea una instancia de la página
             var page = (Page)Activator.CreateInstance(pageType);
             if (page != null)
             {
-                // Establece la nueva página como detalle
                 SetFlyoutPageForHeader(page);
                 Detail = new NavigationPage(page);
-                IsPresented = false; // Cierra el menú flyout
+                IsPresented = false; 
             }
         }
         else
         {
-            // Maneja el caso donde no se encuentra el tipo de página
+            DisplayAlert("Error", $"La página '{pageName}' no fue encontrada.", "OK");
+        }
+    }
+
+    public void NavigateToData(string pageName, TroubleTicketData data)
+    {
+        var pageType = Type.GetType($"Quantum.Vistas.{pageName}");
+        if (pageType != null)
+        {
+            var page = (Page)Activator.CreateInstance(pageType);
+            if (page != null)
+            {
+                if (page is DetalleTroubleTicketsPage detallePage)
+                {
+                    detallePage.TicketData = data;
+                }
+
+                SetFlyoutPageForHeader(page);
+                Detail = new NavigationPage(page);
+                IsPresented = false;
+            }
+        }
+        else
+        {
             DisplayAlert("Error", $"La página '{pageName}' no fue encontrada.", "OK");
         }
     }

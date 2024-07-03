@@ -34,7 +34,9 @@ public partial class Login : ContentPage
                 }
                 catch (Exception ex)
                 {
-                    await DisplayAlert("Error", ex.Message, "OK");
+                    var detailedErrorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+
+                    await DisplayAlert("Error", detailedErrorMessage, "OK");
                 }
             }
             finally

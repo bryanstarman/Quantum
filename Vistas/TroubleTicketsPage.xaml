@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Quantum.Vistas.TroubleTicketsPage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:local="clr-namespace:Quantum.Vistas"
+             BackgroundColor="#F3F4F6"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <local:TemplateHeader x:Name="header" Margin="0,0,0,10" Grid.Row="0"/>
+                <ScrollView Grid.Row="1">
+                    <CollectionView x:Name="troubleTicketCollectionView"
+                SelectionMode="Single"
+                SelectionChanged="troubleTicketCollectionView_SelectionChanged"
+                Margin="10,0,10,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="LightGray" CornerRadius="10" Padding="10" Margin="10" BackgroundColor="White">
+                                    <Frame.Resources>
+                                        <ResourceDictionary>
+                                            <Style TargetType="Frame">
+                                                <Setter Property="VisualStateManager.VisualStateGroups">
+                                                    <VisualStateGroupList>
+                                                        <VisualStateGroup Name="CommonStates">
+                                                            <VisualState Name="Normal">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                            <VisualState Name="Selected">
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                                    <!-- Cambia este color a tu preferencia -->
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateGroupList>
+                                                </Setter>
+                                            </Style>
+                                        </ResourceDictionary>
+                                    </Frame.Resources>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnFrameTapped" />
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout>
+                                        <Label Margin="0,0,0,10" TextColor="Black">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Ticket Number: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                    <Span Text="{Binding Ticket.TicketNumber}" FontFamily="OpenSans-Regular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="0,0,0,10" TextColor="Black">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Open Date: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                    <Span Text="{Binding Ticket.CreatedAt}" FontFamily="OpenSans-Regular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="0,0,0,10" TextColor="Black">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Part Number: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                    <Span Text="{Binding DetailLV1.PartNumber}" FontFamily="OpenSans-Regular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="0,0,0,10" TextColor="Black">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                    <Span Text="{Binding DetailLV1.ItemMaster.Description}" FontFamily="OpenSans-Regular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="0,0,0,10" TextColor="Black">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Status: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                    <Span Text="{Binding Ticket.Status.Description}" FontFamily="OpenSans-Regular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </ScrollView>
+            </Grid>
+            <local:UserPopup x:Name="userPopup" 
+                             AbsoluteLayout.LayoutFlags="PositionProportional" 
+                             Padding="0" 
+                             Margin="0,60,4,0" 
+                             AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" 
+                             IsVisible="false" 
+                             BackgroundColor="Transparent"/>
+            <local:LoadingIndicator x:Name="loadingIndicator" 
+                                AbsoluteLayout.LayoutFlags="All" 
+                                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                IsVisible="false"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

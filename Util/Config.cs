@@ -8,7 +8,7 @@ namespace Quantum.Util
 {
     public class Config
     {
-        public string ApiUrl { get; set; } = "https://4098-157-100-111-10.ngrok-free.app/api/";
+        public string ApiUrl { get; set; } = "https://a9e8-157-100-111-10.ngrok-free.app/api/";
         public HttpClient client { get; } = new HttpClient();
 
     }

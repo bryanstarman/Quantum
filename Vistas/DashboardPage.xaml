@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Quantum.Vistas.DashboardPage"
+             xmlns:local="clr-namespace:Quantum.Vistas"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <local:TemplateHeader x:Name="header" Margin="0,0,0,10" Grid.Row="0"/>
+                <ScrollView Grid.Row="1">
+                    <Image Source="logo.png" HorizontalOptions="Center" Margin="0,0,0,20" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <Image Source="logo.png" HorizontalOptions="Center" Grid.Row="0" Margin="0,0,0,20" />
+                        <Button ImageSource="ticketicon.png" Text="371 Tickets Period" Grid.Row="1" Margin="10,10,10,10" BackgroundColor="#06a0f1" TextColor="White"></Button>
+                        <Button ImageSource="ticketsfulfilled.png" Text="319 Tickets Fulfilled" Grid.Row="2" Margin="10,10,10,10" BackgroundColor="#0066a7" TextColor="White"></Button>
+                        <Button ImageSource="ticketicon.png" Text="371 Tickets Period" Grid.Row="3" Margin="10,10,10,10" BackgroundColor="#14b8a6" TextColor="White"></Button>
+                        <Button ImageSource="ticketicon.png" Text="371 Tickets Period" Grid.Row="4" Margin="10,10,10,10" BackgroundColor="#94a3b8" TextColor="White"></Button>
+                        <Button ImageSource="ticketicon.png" Text="371 Tickets Period" Grid.Row="5" Margin="10,10,10,10" BackgroundColor="#006991" TextColor="White"></Button>
+                        <Button ImageSource="ticketicon.png" Text="371 Tickets Period" Grid.Row="6" Margin="10,10,10,10" BackgroundColor="#f35f5d" TextColor="White"></Button>
+
+                    </Grid>
+                </ScrollView>
+            </Grid>
+            <local:UserPopup x:Name="userPopup" 
+                     AbsoluteLayout.LayoutFlags="PositionProportional" 
+                     Padding="0" 
+                     Margin="0,60,4,0" 
+                     AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" 
+                     IsVisible="false" 
+                     BackgroundColor="Transparent"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

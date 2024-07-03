@@ -82,13 +82,27 @@
             </Frame>
 
             <BoxView Margin="10,25,10,15" HeightRequest="1" Color="#E3E3E3"/>
-
+            <Label x:Name="lbl_valid" TextColor="Black"></Label>
             <CollectionView x:Name="MenuItemsList"
-                            SelectionMode="Single"
-                            SelectionChanged="MenuItemsList_SelectionChanged" Margin="0">
+                SelectionMode="Single"
+                SelectionChanged="MenuItemsList_SelectionChanged" Margin="0">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid  Padding="20,10,10,10">
+                        <Grid Padding="20,10,10,10">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -99,6 +113,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </StackLayout>
     </ScrollView>
 </ContentPage>
