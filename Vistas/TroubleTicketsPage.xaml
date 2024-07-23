@@ -8,13 +8,33 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <Grid x:Name="gd_central" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <local:TemplateHeader x:Name="header" Margin="0,0,0,10" Grid.Row="0"/>
-                <ScrollView Grid.Row="1">
+                <StackLayout x:Name="pnl_opciones" Grid.Row="1">
+                    <Frame x:Name="gridForm" BorderColor="LightGray" CornerRadius="10" Padding="20" Margin="0" BackgroundColor="White">
+                        <Grid HorizontalOptions="FillAndExpand" Padding="20,0,20,0" RowSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Picker x:Name="pck_columna" Title="Column Search" TextColor="Black" ItemDisplayBinding="{Binding Titulo}" Grid.Row="0" Grid.Column="0"/>
+                            <Button x:Name="btn_newTroubleTicket" Text="+ New" Margin="10,0,10,0" BackgroundColor="#0066A7" TextColor="White" Clicked="btn_newTroubleTicket_Clicked" Grid.Row="0" Grid.Column="1"></Button>
+                            <Entry x:Name="txt_filtro" Placeholder="Contain Search" TextColor="Black" Grid.Row="1" Grid.Column="0"/>
+                            <Button x:Name="btn_filtrar" Text="Filter" Margin="10,0,10,0"  TextColor="White" BackgroundColor="#0066A7" Clicked="btn_filtrar_Clicked" Grid.Row="1" Grid.Column="1"></Button>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+                <ScrollView Grid.Row="2" Margin="0,10,0,10">
                     <CollectionView x:Name="troubleTicketCollectionView"
                 SelectionMode="Single"
                 SelectionChanged="troubleTicketCollectionView_SelectionChanged"
@@ -84,6 +104,14 @@
                                         <Label Margin="0,0,0,10" TextColor="Black">
                                             <Label.FormattedText>
                                                 <FormattedString>
+                                                    <Span Text="Serial Damaged: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
+                                                    <Span Text="{Binding DetailLV1.Serial}" FontFamily="OpenSans-Regular"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Margin="0,0,0,10" TextColor="Black">
+                                            <Label.FormattedText>
+                                                <FormattedString>
                                                     <Span Text="Status: " FontAttributes="Bold" FontFamily="OpenSans-Regular"/>
                                                     <Span Text="{Binding Ticket.Status.Description}" FontFamily="OpenSans-Regular"/>
                                                 </FormattedString>
@@ -94,8 +122,28 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-
                 </ScrollView>
+                <StackLayout x:Name="pnl_paginator" Grid.Row="3" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" BackgroundColor="White" Padding="0,10,0,10">
+                    <Grid HorizontalOptions="CenterAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0" Text="««" x:Name="btn_firstPage" Clicked="btn_firstPage_Clicked" BorderWidth="1" BorderColor="#848484" TextColor="#848484"/>
+                        <Button Grid.Row="0" Grid.Column="1" Text="«" x:Name="btn_prevPage" Clicked="btn_prevPage_Clicked" BorderWidth="1" BorderColor="#848484" TextColor="#848484"/>
+                        <Button Grid.Row="0" Grid.Column="2" Text="»" x:Name="btn_nextPage" Clicked="btn_nextPage_Clicked" BorderWidth="1" BorderColor="#848484" TextColor="#848484"/>
+                        <Button Grid.Row="0" Grid.Column="3" Text="»»" x:Name="btn_lastPage" Clicked="btn_lastPage_Clicked" BorderWidth="1" BorderColor="#848484" TextColor="#848484"/>
+                        <Label Grid.Row="1" Grid.ColumnSpan="4" x:Name="lbl_pageInfo" Text="Showing 1 to 5 of 367 entries" TextColor="Black" FontSize="10" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,10,0,0"/>
+                    </Grid>
+                </StackLayout>
+
             </Grid>
             <local:UserPopup x:Name="userPopup" 
                              AbsoluteLayout.LayoutFlags="PositionProportional" 

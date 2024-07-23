@@ -28,7 +28,6 @@ public partial class DetalleTroubleTicketsPage : ContentPage
                 if (TicketData != null)
                 {
                     troubleTicketCollectionView.ItemsSource = new List<TroubleTicketData> { TicketData };
-                    //TicketData.Ticket.Creator.Name = string.Empty;
                 }
 
             }
@@ -45,5 +44,25 @@ public partial class DetalleTroubleTicketsPage : ContentPage
         {
             loadingIndicator.IsVisible = false;
         }
+    }
+
+    private void NextPageButton_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void LastPageButton_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void FirstPageButton_Clicked(object sender, EventArgs e)
+    {
+
+    }
+
+    private void PrevPageButton_Clicked(object sender, EventArgs e)
+    {
+
     }
 }

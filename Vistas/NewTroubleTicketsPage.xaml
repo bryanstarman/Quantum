@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Quantum.Vistas.NewTroubleTicketsPage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:local="clr-namespace:Quantum.Vistas"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <local:TemplateHeader x:Name="header" Margin="0,0,0,10" Grid.Row="0"/>
+                <ScrollView Grid.Row="1">
+                    <Frame x:Name="gridForm" BorderColor="LightGray" CornerRadius="10" Padding="20" Margin="10" BackgroundColor="White">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <VerticalStackLayout Padding="10" Margin="0,0,0,20"  Grid.Row="0" HorizontalOptions="FillAndExpand">
+                                <HorizontalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                    <ffimageloading:SvgCachedImage x:Name="img_activeProyect"  WidthRequest="50" HeightRequest="30"/>
+                                    <Label x:Name="lbl_title"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="Black"
+                                           Text="********************"
+                                       VerticalOptions="Center"
+                                       Margin="10,0,0,0" />
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0,10,0,0">
+                                    <Image Source="calendar.png" WidthRequest="20" HeightRequest="20" />
+                                    <Label  x:Name="lbl_fecha"
+                                       FontSize="10"
+                                             Text="********************"
+                                       TextColor="#848484"
+                                       VerticalOptions="Center"
+                                       Margin="5,0,0,0" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+
+                            <Label Text="Failure City:*" TextColor="Black" Grid.Row="1" FontAttributes="Bold"></Label>
+                            <Picker x:Name="pck_failureCity" SelectedIndexChanged="pck_failureCity_SelectedIndexChanged" Title="Select one" Grid.Row="2" TextColor="Black" ItemDisplayBinding="{Binding City}"/>
+
+                            <Label Text="HW Delivery Center:*" TextColor="Black" Grid.Row="3" FontAttributes="Bold"></Label>
+                            <Picker x:Name="pck_deliveryCenter" Grid.Row="4" SelectedIndexChanged="pck_failureCity_SelectedIndexChanged" Title="Select one" TextColor="Black" ItemDisplayBinding="{Binding City}"/>
+                                <Label Text="Creator Name:" TextColor="Black" Grid.Row="5" FontAttributes="Bold"></Label>
+                            <Entry x:Name="txt_creatorName" TextColor="Black" Grid.Row="6"/>
+                            <Label Text="Creator Work Phone:" TextColor="Black" Grid.Row="7" FontAttributes="Bold"></Label>
+                            <Entry x:Name="txt_creatorWorkPhone" TextColor="Black" Grid.Row="8"/>
+
+                        </Grid>
+                    </Frame>
+                </ScrollView>
+            </Grid>
+            <local:UserPopup x:Name="userPopup" 
+                     AbsoluteLayout.LayoutFlags="PositionProportional" 
+                     Padding="0" 
+                     Margin="0,60,4,0" 
+                     AbsoluteLayout.LayoutBounds="1,0,AutoSize,AutoSize" 
+                     IsVisible="false" 
+                     BackgroundColor="Transparent"/>
+            <local:LoadingIndicator x:Name="loadingIndicator" 
+                     AbsoluteLayout.LayoutFlags="All" 
+                     AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                     IsVisible="false"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

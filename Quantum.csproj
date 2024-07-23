@@ -50,11 +50,13 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\book.png" />
+	  <None Remove="Resources\Images\Calendar.png" />
 	  <None Remove="Resources\Images\ChartBarSquareIcon.png" />
 	  <None Remove="Resources\Images\dropicon.png" />
 	  <None Remove="Resources\Images\ec.png" />
 	  <None Remove="Resources\Images\ec.svg" />
 	  <None Remove="Resources\Images\Eye.png" />
+	  <None Remove="Resources\Images\filtro.png" />
 	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Images\menu.png" />
 	  <None Remove="Resources\Images\Pencil.png" />
@@ -89,6 +91,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Vistas\MenuFlyout.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Vistas\NewTroubleTicketsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Vistas\Principal.xaml">

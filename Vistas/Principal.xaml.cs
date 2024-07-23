@@ -9,6 +9,7 @@ public partial class Principal : FlyoutPage
     public Principal()
     {
 		InitializeComponent();
+        menuFlyout.SetMainPage(this);
         NavigateTo("Home");
     }
 

@@ -6,8 +6,8 @@ public partial class TemplateHeader : ContentView
     private FlyoutPage _parentFlyoutPage;
 
     public TemplateHeader()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         var userResponseJson = Preferences.Get("UserResponse", string.Empty);
         if (!string.IsNullOrEmpty(userResponseJson))
         {

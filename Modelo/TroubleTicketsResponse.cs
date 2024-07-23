@@ -872,4 +872,18 @@ namespace Quantum.Modelo
         [JsonProperty("active")]
         public bool? Active { get; set; }
     }
+
+
+    public class NewTicketSP{
+        [JsonProperty("current")]
+        public int? Current { get; set; }
+        [JsonProperty("currentCode")]
+        public string? CurrentCode { get; set; }
+        [JsonProperty("created_at")]
+        public string? CreatedAt { get; set; }
+        [JsonProperty("new")]
+        public int? New { get; set; }
+        [JsonProperty("newCode")]
+        public string? NewCode { get; set; }
+    }
 }

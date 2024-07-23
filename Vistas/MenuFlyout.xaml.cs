@@ -2,12 +2,12 @@ using Newtonsoft.Json;
 using Quantum.Modelo;
 using Quantum.Service;
 using System.Collections.ObjectModel;
-using static Android.App.LauncherActivity;
 namespace Quantum.Vistas;
 
 public partial class MenuFlyout : ContentPage
 {
     ProyectUserService proyectUserService;
+    private Principal mainPage;
 
     private ObservableCollection<ProjectResponse> projects;
     private List<Project> originalProjectsList;
@@ -17,8 +17,13 @@ public partial class MenuFlyout : ContentPage
         InitializeComponent();
         proyectUserService = new ProyectUserService();
         LoadProjects();
-        LoadNavigationItems();
     }
+
+    public void SetMainPage(Principal principal)
+    {
+        mainPage = principal;
+    }
+
 
     private void LoadNavigationItems()
     {
@@ -39,8 +44,6 @@ public partial class MenuFlyout : ContentPage
                 }).ToList();
 
                 MenuItemsList.ItemsSource = menuFlyoutItems;
-
-                SelectFirstMenuItem();
             }
         }
     }
@@ -66,6 +69,8 @@ public partial class MenuFlyout : ContentPage
                         var firstProject = firstProjectResponse.Projects.FirstOrDefault();
                         firstProjectResponse.Projects.Remove(firstProject);
                         projectCollectionView.ItemsSource = new ObservableCollection<Project>(projectResponse.Projects);
+                        LoadNavigationItems();
+
                     }
                 }
             }
@@ -77,6 +82,10 @@ public partial class MenuFlyout : ContentPage
         catch (Exception ex)
         {
             await DisplayAlert("Error", ex.Message, "OK");
+        }
+        finally
+        {
+            SelectFirstMenuItem();
         }
     }
 
@@ -106,7 +115,12 @@ public partial class MenuFlyout : ContentPage
 
             projectCollectionView.SelectedItem = null;
             openListProyect();
-            //LoadVistaHome();
+            var menuFlyoutItemJson = Preferences.Get("MenuFlyoutItem", string.Empty);
+            if (!string.IsNullOrEmpty(menuFlyoutItemJson))
+            {
+                var menuFlyoutItemResponse = JsonConvert.DeserializeObject<MenuFlyoutItem>(menuFlyoutItemJson);
+                HandleMenuItemSelection(menuFlyoutItemResponse);
+            }
         }
     }
 
@@ -127,39 +141,28 @@ public partial class MenuFlyout : ContentPage
 
     private void HandleMenuItemSelection(MenuFlyoutItem selectedMenuItem)
     {
-        lbl_valid.Text = selectedMenuItem.Name;
-
-        if (selectedMenuItem != null)
+        try
         {
-            var currentPage = Application.Current.MainPage;
-
-            while (currentPage != null && !(currentPage is Principal))
+            if (selectedMenuItem != null)
             {
-                if (currentPage is NavigationPage navigationPage)
+                Console.WriteLine($"HandleMenuItemSelection called with: {selectedMenuItem.Name}");
+
+                if (mainPage != null)
                 {
-                    currentPage = navigationPage.CurrentPage;
-                }
-                else if (currentPage is FlyoutPage flyoutPage)
-                {
-                    currentPage = flyoutPage.Detail;
+                    Preferences.Set("MenuFlyoutItem", JsonConvert.SerializeObject(selectedMenuItem));
+                    mainPage.NavigateTo(selectedMenuItem.Name);
                 }
                 else
                 {
-                    break;
+                    DisplayAlert("Error", "No se pudo encontrar la página principal.", "OK");
                 }
             }
-
-            if (currentPage is Principal principalPage)
-            {
-                principalPage.NavigateTo(selectedMenuItem.Name);
-            }
-            else
-            {
-                DisplayAlert("Error", "No se pudo encontrar la página principal.", "OK");
-            }
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Error", $"Error en HandleMenuItemSelection: {ex.Message}", "OK");
         }
     }
-
 
     private void SelectFirstMenuItem()
     {
@@ -173,7 +176,9 @@ public partial class MenuFlyout : ContentPage
                     var firstItem = itemsSource.FirstOrDefault();
                     if (firstItem != null)
                     {
+                        Console.WriteLine($"SelectFirstMenuItem: {firstItem.Name}");
                         MenuItemsList.SelectedItem = firstItem;
+                        //await Task.Delay(100);
                         HandleMenuItemSelection(firstItem);
                     }
                 }
@@ -181,7 +186,7 @@ public partial class MenuFlyout : ContentPage
         }
         catch (Exception ex)
         {
-            DisplayAlert("Error",$"Error selecting first menu item: {ex.Message}","ok");
+            DisplayAlert("Error", $"Error selecting first menu item: {ex.Message}", "OK");
         }
     }
 

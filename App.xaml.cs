@@ -2,67 +2,48 @@
 {
     public partial class App : Application
     {
+        private bool _isAuthenticated;
+
         public App()
         {
             InitializeComponent();
 
             MainPage = new NavigationPage(new Vistas.Login());
         }
-        /*
-        protected override async void OnStart()
-        {
-            base.OnStart();
 
-            string token = await SecureStorage.GetAsync("auth_token");
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                MainPage = new NavigationPage(new Vistas.Principal());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new Vistas.Login());
-            }
-        }
-
-        protected override async void OnResume()
-        {
-            base.OnResume();
-
-            string token = await SecureStorage.GetAsync("auth_token");
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                MainPage = new NavigationPage(new Vistas.Principal());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new Vistas.Login());
-            }
-        }*/
         protected override async void OnStart()
         {
             base.OnStart();
             await HandleAuthenticationAsync();
         }
 
-        protected override async void OnResume()
+        protected override void OnSleep()
+        {
+            base.OnSleep();
+            // No hacer nada aquí respecto a la autenticación
+        }
+
+        protected override void OnResume()
         {
             base.OnResume();
-            await HandleAuthenticationAsync();
+            // No hacer nada aquí respecto a la autenticación
         }
 
         private async Task HandleAuthenticationAsync()
         {
-            string token = await SecureStorage.GetAsync("auth_token");
+            if (!_isAuthenticated)
+            {
+                string token = await SecureStorage.GetAsync("auth_token");
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                MainPage = new Vistas.Principal();
-            }
-            else
-            {
-                MainPage = new NavigationPage(new Vistas.Login());
+                if (!string.IsNullOrEmpty(token))
+                {
+                    MainPage = new Vistas.Principal();
+                    _isAuthenticated = true;
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new Vistas.Login());
+                }
             }
         }
     }
